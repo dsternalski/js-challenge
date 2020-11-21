@@ -12,7 +12,7 @@ challenge = {
                             '<option value="2">2</option>',
                         '</select>',
                         '<div class="button_1 a-section a-spacing-small">',
-                            '<span class="a-button a-button-primary a-button-icon"><span class="a-button-inner"><i class="a-icon a-icon-cart"></i><input id="add-to-cart-button" name="submit.add-to-cart" title="Add to Shopping Basket" class="a-button-input" type="submit" aria-labelledby="a-autoid-2-announce"><span class="a-button-text a-text-left" aria-hidden="true" id="a-autoid-2-announce">Add to Basket</span></span></span>',
+                            '<span class="a-button a-button-primary a-button-icon"><span class="a-button-inner"><i class="a-icon a-icon-cart"></i><input name="submit.add-to-cart" title="Add to Shopping Basket" class="a-button-input" type="submit" aria-labelledby="a-autoid-2-announce"><span class="a-button-text a-text-left" aria-hidden="true" id="a-autoid-2-announce">Add to Basket</span></span></span>',
                         '</div>'
                     ]
                 },
@@ -103,8 +103,7 @@ challenge = {
                     console.log(btn, btn.length);
                     var original = document.getElementById('buybox.addToCart');
                     btn[0].addEventListener('click', function(e){
-                        console.log("clicked");
-                        // NEED AJAX HERE TO MAKE THE CHANGE
+                        document.getElementById('add-to-cart-button').click();
                     });
                 }
             }, 200);
