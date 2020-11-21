@@ -70,7 +70,6 @@ challenge = {
                             document.getElementById("banner").classList.add("hide");
                         } else {
                             document.getElementById("banner").classList.remove("hide");
-
                         }
                     };
                     display();
