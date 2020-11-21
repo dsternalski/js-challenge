@@ -3,7 +3,7 @@ challenge = {
         addCode: {
             banner: {
                 code: {
-                    element: 'div', 
+                    element: 'div',
                     id: 'banner',
                     class: 'banner_1',
                     innerhtml: [
