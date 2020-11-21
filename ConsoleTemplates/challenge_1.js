@@ -20,7 +20,7 @@ challenge = {
             },
         },
         css: [
-            '.banner_1 {background:#232f3e; bottom:0; box-sizing:border-box; position:fixed; text-align:center; width:100%; z-index:9;}',
+            '.banner_1 {background:#232f3e; bottom:0; box-sizing:border-box; position:fixed; text-align:center; width:100%; z-index:99;}',
             '.button_1 {display:inline-block; margin:10px 0; padding:0; width:200px;}',
             'select#qty {bottom:19px; display:inline-block; height:35px; position:relative; right:10px; width:43px;}',
             '.hide {display:none;}'
@@ -81,16 +81,14 @@ challenge = {
             }, 200);
         },
         dropdownClick:function() {
-            var banner = document.getElementsByClassName('banner_1');
+            var banner = document.getElementsByClassName('banner_1'), oDropDown = document.getElementById('mobileQuantityDropDown');
             var intvl = setInterval(function(){
-                if(banner.length) {
+                if(banner.length && oDropDown.length) {
                     clearInterval(intvl);
                     var qty = document.getElementById('qty');
                     qty.addEventListener("change", function(){
                         console.log("We have a change!");
-                        var original = document.querySelector('#a-autoid-1-announce .a-dropdown-prompt');
-                        console.log("exsiting qty:", original.innerText, qty.value);
-                        // NEED AJAX HERE TO MAKE THE CHANGE
+                        console.log('Qty from banner:', qty.value);
                     });
                 }
             }, 200);
@@ -104,6 +102,7 @@ challenge = {
                     var original = document.getElementById('buybox.addToCart');
                     btn[0].addEventListener('click', function(e){
                         document.getElementById('add-to-cart-button').click();
+                        // NEED TO LOOK AT AJAX FOR SENDING QTY.
                     });
                 }
             }, 200);
