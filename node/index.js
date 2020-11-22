@@ -3,17 +3,11 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 var fetch = require('node-fetch');
-// var request = require('request');
-// var config = require('./routes/config');
 
 // Set up express app
 var app = express();
 app.use(bodyParser.json());
 app.use(express.static('public'));
-
-// // Initialise routes.
-// app.use('/api', require('./routes/config'));
-// app.use('/api', require('./routes/listCards'));
 
 // Error handling middleweare.
 app.use(function(err, req, res, next){
