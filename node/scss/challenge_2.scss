@@ -1,0 +1,19 @@
+$bannerBg:#000000;
+$bannerColour:#ffffff;
+$spanColour:#E67A00;
+
+.banner_1 {
+    background:$bannerBg;
+    color:$bannerColour;
+    padding:10px;
+    text-align:center;
+}
+.banner_1 p span {
+    color:$spanColour;
+}
+.banner_1 p:nth-child(1) {
+    font-size:23px;
+}
+.banner_1 p:nth-child(3) {
+    font-size:12px;
+}

@@ -15,13 +15,6 @@ challenge = {
                 prependTo: ['.s-search-results']
             },
         },
-        css: [
-            '.banner_1 {background:#000000; color:#ffffff; padding:10px; text-align:center;}',
-            '.banner_1 p span {color:#E67A00;}',
-            '.banner_1 p:nth-child(1) {font-size:23px;}',
-            '.banner_1 p:nth-child(3) {font-size:12px;}',
-            '.s-asin.product {border:2px solid blue;}'
-        ]
     },
     ftns: {
         addCode:function() {
@@ -40,12 +33,6 @@ challenge = {
                     }
                 }
             }
-        },
-        css:function() {
-              var css = challenge.modifications.css, newNode = document.createElement('style');
-              document.getElementsByTagName('head')[0].appendChild(newNode);
-              css = css.join(' ');
-              newNode.innerText = css;
         },
         moveAfterResult:function() {
             var banner = document.getElementById('banner');
