@@ -12,3 +12,6 @@
 
 .banner_1 p:nth-child(3) {
   font-size: 12px; }
+
+.hide, [data-component-type="s-search-results"] > #banner {
+  display: none; }
