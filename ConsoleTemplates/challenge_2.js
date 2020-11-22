@@ -7,8 +7,8 @@ challenge = {
                     id: 'banner',
                     class: 'banner_1',
                     innerhtml: [
-                        '<p>Get 50% off all Amazon products</p>',
-                        '<p>Use code: AZ50</p>',
+                        '<p>Get 50% off <br>all Amazon products</p>',
+                        '<p>Use code: <span>AZ50</span></p>',
                         '<p>T&Cs Apply</p>'
                     ]
                 },
@@ -16,8 +16,10 @@ challenge = {
             },
         },
         css: [
-            'body {border:3px solid red;}',
-            '.banner_1 {border:2px solid green;}',
+            '.banner_1 {background:#000000; color:#ffffff; padding:10px; text-align:center;}',
+            '.banner_1 p span {color:#E67A00;}',
+            '.banner_1 p:nth-child(1) {font-size:23px;}',
+            '.banner_1 p:nth-child(3) {font-size:12px;}',
             '.s-asin.product {border:2px solid blue;}'
         ]
     },
@@ -53,8 +55,6 @@ challenge = {
                     var asin = document.querySelectorAll('[data-asin]'), count = 0;
                     for(var a = 0; a < asin.length; a++) {
                         var dataAsin = asin[a].getAttribute('data-asin'), classAsin = asin[a].getAttribute('class');
-                        console.log(dataAsin, classAsin);
-
                         if(dataAsin && classAsin.match(/s-result-item/i)) {
                             count++;
                             document.querySelector('[data-asin="' + dataAsin + '"]').classList.add("product_" + count);
@@ -76,5 +76,3 @@ challenge = {
     }
 };
 challenge.ftns.init();
-
-// data-index="3" - Needs to always sit under here
