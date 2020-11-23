@@ -113,13 +113,18 @@ challenge = {
     }
 };
 
-// An intvl has been set so that test knows when to run and not rely on the 'on page load' option of the Chrome extension.
-var intvl = setInterval(function(){
-    if(document.getElementById('a-page')) {
-        clearInterval(intvl);
-        console.log("Found");
-        challenge.ftns.init();
-    } else {
-        console.log("Looking");
-    }
-}, 200);
+// The if statement checks that the device is a mobile.
+if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+    // An intvl has been set so that test knows when to run and not rely on the 'on page load' option of the Chrome extension.
+    var intvl = setInterval(function(){
+        if(document.getElementById('a-page')) {
+            clearInterval(intvl);
+            console.log("Found");
+            challenge.ftns.init();
+        } else {
+            console.log("Looking");
+        }
+    }, 200);
+} else {
+    console.log("Abort as is Desktop");
+}

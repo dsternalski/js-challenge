@@ -7,6 +7,8 @@ Running the code:
 3) To run the node files, type the following into the cmd panel:
 node index
 
+NOTE: Make sure that the node is running first before you view the test.
+
 Structure: The project contains several files and folders:
 - ConsoleTemplates: Contains my original challenge files.
 - node: Contains the node projects.

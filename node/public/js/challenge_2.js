@@ -41,57 +41,41 @@ challenge = {
         },
         // This function moves the new banner to the relevent position in the list.
         moveAfterResult:function() {
-            var banner = document.getElementById('banner'), cBanner = document.getElementsByClassName('banner_1');
+            var banner = document.getElementById('banner');
             var intvl = setInterval(function(){
                 if(banner) {
                     clearInterval(intvl);
                     // The count has been added to help identify the product that the new banner should sit under.
                     var asin = document.querySelectorAll('[data-asin]'), count = 0;
+
+                    // This code here is for debugging.
+                    if(asin) {
+                        console.log("data-asin tag found");
+                    } else {
+                        console.log("data-asin not found");
+                    }
+
+                    // This code loops through all of the data-asin tags and adds the relevant classes.
                     for(var a = 0; a < asin.length; a++) {
                         var dataAsin = asin[a].getAttribute('data-asin'), classAsin = asin[a].getAttribute('class');
                         if(dataAsin && classAsin.match(/s-result-item/i)) {
                             count++;
                             document.querySelector('[data-asin="' + dataAsin + '"]').classList.add("product_" + count);
                             document.getElementById("banner").classList.remove("hide");
-                        } else {
-                            console.log('data-asin is not avaliable');
                         }
                     }
+                    if(document.getElementsByClassName('product_1')) {
+                        console.log("found the product_1");
+                        var product = document.querySelector('.product_2');
+                        console.log("parentNode", product);
+                        product.parentNode.insertBefore(banner, product);
+                    } else {
+                        console.log("looking for product_1");
+                    }
+                } else {
+                    console.log("Banner not avaliable");
                 }
-                var product = document.querySelector('.product_1');
-                product.after(banner);
             }, 200);
-        },
-        // This function is for the clicking on the filter area.
-        filterBtns:function() {
-            // Select the node that will be observed for mutations
-            var targetNode = document.body;
-
-            // Options for the observer (which mutations to observe)
-            var config = {childList:true};
-
-            // Callback function to execute when mutations are observed
-            var callback = function(mutationsList, observer) {
-                for(var mutation of mutationsList) {
-                    var pageMutation = false;
-                    if(mutation.type == 'childList' && !document.getElementsByClassName('banner_1').length && pageMutation == false) {
-                        console.log("page mutation");
-                        var fired = false, pageMutation = true;
-                        if(fired == false) {
-                            fired = true;
-                            setTimeout(function(){
-                                challenge.ftns.init();
-                            }, 500);
-                        }
-                    }
-                }
-            };
-
-            // Create an observer instance linked to the callback function
-            var observer = new MutationObserver(callback);
-
-            // Start observing the target node for configured mutations
-            observer.observe(targetNode, config);
         },
         // This is the intialisation function that fires all functions (except itself and any function starting with x__) in the ftns object.
         init:function() {
@@ -105,13 +89,35 @@ challenge = {
     }
 };
 
-// An intvl has been set so that test knows when to run and not rely on the 'on page load' option of the Chrome extension.
-var intvl = setInterval(function(){
-    if(document.getElementById('a-page')) {
-        clearInterval(intvl);
-        console.log("Found");
-        challenge.ftns.init();
-    } else {
-        console.log("Looking");
-    }
-}, 200);
+// The if statement checks that the device is a mobile.
+if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+    // An intvl has been set so that test knows when to run and not rely on the 'on page load' option of the Chrome extension.
+    var intvl = setInterval(function(){
+        if(document.getElementById('a-page')) {
+            clearInterval(intvl);
+            console.log("Found");
+            challenge.ftns.init();
+
+            // Mutation changes.
+            var targetNode = document.querySelector('.s-result-list') || document.querySelector('body');
+            var config = {attributes:false, childList:true, subtree:false};
+            var cURL = window.location.href;
+            var callback = function(mutationsList, observer) {
+                for(var mutation of mutationsList) {
+                    var nURL = window.location.href;
+                    if(nURL != cURL) {
+                        console.log('URLS:', cURL, nURL);
+                        challenge.ftns.init();
+                        cURL = nURL;
+                    }
+                }
+            };
+            var observer = new MutationObserver(callback);
+            observer.observe(targetNode, config);
+        } else {
+            console.log("Looking");
+        }
+    }, 200);
+} else {
+    console.log("Abort as is Desktop");
+}
