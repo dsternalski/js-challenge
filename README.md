@@ -7,7 +7,7 @@ Running the code:
 3) To run the node files, type the following into the cmd panel:
 node index
 
-NOTE: Make sure that the node is running first before you view the test.
+NOTE: Make sure that the node is running first before you view the test and that your cache and cookies are cleared.
 
 Structure: The project contains several files and folders:
 - ConsoleTemplates: Contains my original challenge files.
