@@ -65,12 +65,16 @@ challenge = {
                         }
                     }
                     if(document.getElementsByClassName('product_1')) {
-                        console.log("found the product_1");
                         var product = document.querySelector('.product_2');
-                        console.log("parentNode", product);
-                        product.parentNode.insertBefore(banner, product);
+                        if(product) {
+                            product.parentNode.insertBefore(banner, product);
+                        } else {
+                            // Note: Not sure that this is the best way, but I noticed that upon refresh, the test worked.
+                            var url = window.location.href;
+                            window.location.replace(url);
+                        }
                     } else {
-                        console.log("looking for product_1");
+                        console.log("looking for .product_1");
                     }
                 } else {
                     console.log("Banner not avaliable");
