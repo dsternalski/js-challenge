@@ -104,7 +104,7 @@ if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigat
 
             // Mutation changes.
             var targetNode = document.querySelector('.s-result-list') || document.querySelector('body');
-            var config = {attributes:false, childList:true, subtree:false};
+            var config = {attributes:true, childList:true, subtree:true};
             var cURL = window.location.href;
             var callback = function(mutationsList, observer) {
                 for(var mutation of mutationsList) {

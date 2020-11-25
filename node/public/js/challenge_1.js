@@ -78,7 +78,7 @@ challenge = {
         dropdownClick:function() {
             var banner = document.getElementsByClassName('banner_1'), oDropDown = document.getElementById('mobileQuantityDropDown');
             var intvl = setInterval(function(){
-                if(banner.length && oDropDown.length) {
+                if(banner) {
                     clearInterval(intvl);
                     var qty = document.getElementById('qty'), oQty = document.getElementById('quantity'), oQtyPrompt = document.getElementsByClassName('a-dropdown-prompt');
                     qty.addEventListener("change", function(){
@@ -98,6 +98,21 @@ challenge = {
                     btn[0].addEventListener('click', function(e){
                         document.getElementById('add-to-cart-button').click();
                     });
+                }
+            }, 200);
+        },
+        // This is the origial drop down click.
+        oDropdownClick:function(){
+            var btn = document.getElementsByClassName('a-button-dropdown');
+            var intvl = setInterval(function(){
+                if(btn) {
+                    clearInterval(intvl);
+                    console.log(111);
+                    for(var a = 0; a < btn.length; a++) {
+                        btn[a].addEventListener('change', function(){
+                            console.log(2, btn[a]);
+                        });
+                    }
                 }
             }, 200);
         },
