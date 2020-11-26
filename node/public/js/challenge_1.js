@@ -67,10 +67,12 @@ challenge = {
                             document.getElementById("banner").classList.remove("hide");
                         }
                     };
-                    display();
-                    window.addEventListener('scroll', function() {
+                    setTimeout(function(){
                         display();
-                    });
+                        window.addEventListener('scroll', function() {
+                            display();
+                        });
+                    }, 100);
                 }
             }, 200);
         },
@@ -107,14 +109,28 @@ challenge = {
             var intvl = setInterval(function(){
                 if(btn) {
                     clearInterval(intvl);
-                    console.log(111);
                     for(var a = 0; a < btn.length; a++) {
-                        btn[a].addEventListener('change', function(){
-                            console.log(2, btn[a]);
+                        btn[a].addEventListener('click', function(){
+                            var pop = document.getElementsByClassName('a-popover');
+                            var popIntvl = setInterval(function(){
+                                if(pop) {
+                                    clearInterval(popIntvl);
+                                    var liOption = document.querySelectorAll('li[role="option"] a');
+                                    for(var b = 0; b < liOption.length; b++) {
+                                        liOption[b].classList.remove("a-active");
+                                        var q = Number(document.getElementsByClassName('a-dropdown-prompt')[0].innerText);
+                                        document.getElementById('mobileQuantityDropDown_' + --q).classList.add("a-active");
+                                        liOption[b].addEventListener('click', function(){
+                                            console.log("Qty:", Number(this.textContent));
+                                            document.getElementById('qty').value = Number(this.textContent);
+                                        });
+                                    }
+                                }
+                            }, 100);
                         });
                     }
                 }
-            }, 200);
+            }, 100);
         },
         // This is the intialisation function that fires all functions (except itself and any function starting with x__) in the ftns object.
         init:function() {

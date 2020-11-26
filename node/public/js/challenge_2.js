@@ -47,35 +47,39 @@ challenge = {
                     clearInterval(intvl);
                     // The count has been added to help identify the product that the new banner should sit under.
                     var asin = document.querySelectorAll('[data-asin]'), count = 0;
-
-                    // This code here is for debugging.
-                    if(asin) {
-                        console.log("data-asin tag found");
-                    } else {
-                        console.log("data-asin not found");
-                    }
-
-                    // This code loops through all of the data-asin tags and adds the relevant classes.
-                    for(var a = 0; a < asin.length; a++) {
-                        var dataAsin = asin[a].getAttribute('data-asin'), classAsin = asin[a].getAttribute('class');
-                        if(dataAsin && classAsin.match(/s-result-item/i)) {
-                            count++;
-                            document.querySelector('[data-asin="' + dataAsin + '"]').classList.add("product_" + count);
-                            document.getElementById("banner").classList.remove("hide");
+                    var cIntvl = setInterval(function(){
+                        if(document.getElementsByClassName('s-result-item') && document.querySelectorAll('[data-asin]')) {
+                            clearInterval(cIntvl);
+                            // So once the page has changed, it doesn't always instantly have the data-asin. 
+                            findAll = function() {
+                                var asin = document.querySelectorAll('[data-asin]'), count = 0;
+                                // This code loops through all of the data-asin tags and adds the relevant classes.
+                                for(var a = 0; a < asin.length; a++) {
+                                    var dataAsin = asin[a].getAttribute('data-asin'), classAsin = asin[a].getAttribute('class');
+                                    if(dataAsin && classAsin.match(/s-result-item/i)) {
+                                        count++;
+                                        document.querySelector('[data-asin="' + dataAsin + '"]').classList.add("product_" + count);
+                                        document.getElementById("banner").classList.remove("hide");
+                                    }
+                                }
+                            }
+                            findAll();
+                            if(document.getElementsByClassName('product_1')) {
+                                var product = document.querySelector('.product_2');
+                                if(product) {
+                                    product.parentNode.insertBefore(banner, product);
+                                } else {
+                                    setTimeout(function(){
+                                        findAll();
+                                        var product = document.querySelector('.product_2');
+                                        product.parentNode.insertBefore(banner, product);
+                                    }, 300);
+                                }
+                            } else {
+                                console.log("looking for .product_1");
+                            }
                         }
-                    }
-                    if(document.getElementsByClassName('product_1')) {
-                        var product = document.querySelector('.product_2');
-                        if(product) {
-                            product.parentNode.insertBefore(banner, product);
-                        } else {
-                            // Note: Not sure that this is the best way, but I noticed that upon refresh, the test worked.
-                            var url = window.location.href;
-                            window.location.replace(url);
-                        }
-                    } else {
-                        console.log("looking for .product_1");
-                    }
+                    }, 100);
                 } else {
                     console.log("Banner not avaliable");
                 }
@@ -103,7 +107,7 @@ if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigat
             challenge.ftns.init();
 
             // Mutation changes.
-            var targetNode = document.querySelector('.s-result-list') || document.querySelector('body');
+            var targetNode = document.querySelector('#a-page') || document.querySelector('body');
             var config = {attributes:true, childList:true, subtree:true};
             var cURL = window.location.href;
             var callback = function(mutationsList, observer) {
